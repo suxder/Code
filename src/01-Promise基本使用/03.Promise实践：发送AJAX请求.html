@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <title>Promise实践</title>
+</head>
+
+<body>
+  <h1>点击按钮发送AJAX请求</h1>
+  <hr>
+  <button id="btn">发送</button>
+  <script>
+    // 接口地址：https://icanhazdadjoke.com
+    const btnEl = document.getElementById("btn")
+    btnEl.addEventListener("click", function () {
+      let p = new Promise((resolve, reject) => {
+        // 创建对象
+        const xhr = new XMLHttpRequest()
+        // 初始化
+        xhr.open("GET", "https://icanhazdadjoke.com")
+        // 设置请求头
+        xhr.setRequestHeader("Accept", "application/json")
+        // 发送
+        xhr.send()
+        // 处理响应结果
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            if (xhr.status >= 200 && xhr.status < 300) {
+              resolve(xhr.response)
+            } else {
+              reject(xhr.status)
+            }
+          }
+        }
+      })
+
+      p.then(value => {
+        console.log(JSON.parse(value).joke);
+      }, reason => {
+        console.log(reason);
+      })
+
+      console.log("非阻塞IO模型");
+    })
+  </script>
+</body>
+
+</html>
