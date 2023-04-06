@@ -1,0 +1,17 @@
+:root {
+  font-size: 1em;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  border: 0;
+  overflow: hidden;
+}
